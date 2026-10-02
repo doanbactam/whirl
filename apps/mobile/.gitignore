@@ -1,0 +1,12 @@
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native builds
+/ios
+/android
+
+# Metro
+.metro-health-check*

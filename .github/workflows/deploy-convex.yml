@@ -1,0 +1,40 @@
+name: Deploy Convex
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Deploys wherever a CONVEX_DEPLOY_KEY secret is configured (Convex
+  # dashboard → Settings → Deploy keys). Forks and copies without one skip
+  # the deploy instead of failing it.
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.key.outputs.enabled }}
+    steps:
+      - id: key
+        env:
+          CONVEX_DEPLOY_KEY: ${{ secrets.CONVEX_DEPLOY_KEY }}
+        run: echo "enabled=${{ env.CONVEX_DEPLOY_KEY != '' }}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: check
+    if: needs.check.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Deploy to Convex
+        working-directory: packages/backend
+        env:
+          CONVEX_DEPLOY_KEY: ${{ secrets.CONVEX_DEPLOY_KEY }}
+        run: bunx convex deploy -y

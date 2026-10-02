@@ -1,0 +1,15 @@
+# https://whirl.chat
+User-agent: *
+Allow: /
+
+# Internal / auth-gated screens — no public value to index.
+Disallow: /admin
+Disallow: /debug
+Disallow: /settings
+Disallow: /threads
+Disallow: /sso-callback
+
+# Public share + visual pages are intentionally left crawlable so their
+# social cards unfurl on Twitter, Slack, Discord, etc.
+
+Sitemap: https://whirl.chat/sitemap.xml

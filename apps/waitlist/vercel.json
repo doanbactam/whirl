@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "/api/waitlist",
+      "methods": ["GET", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
+      "mitigate": { "action": "deny" }
+    }
+  ]
+}

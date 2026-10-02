@@ -1,0 +1,37 @@
+.DS_Store
+.env
+node_modules/
+
+# bun is the package manager here — keep npm/yarn/pnpm lockfiles out
+# (a committed package-lock.json makes Vercel pick npm, which chokes on workspace:*)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# React Router
+.react-router/
+build/
+
+# clerk configuration (can include secrets)
+.clerk/
+
+.env.local
+
+# Vite / Nitro (React Router production build)
+apps/*/dist/
+apps/*/.output/
+.output/
+.vite/
+
+# TanStack Start scratch files
+.tanstack/
+
+# TypeScript incremental build
+*.tsbuildinfo
+
+# Remotion render output
+apps/remotion/out/
+
+# Per-machine agent state (shared skills under .claude/skills stay tracked)
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

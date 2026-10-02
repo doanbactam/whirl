@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Mirrors the main app's design tokens (apps/legacy/app/app.css) so the console
+   reads as the same product wearing a suit. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --radius-xs: 0.75rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 0.75rem;
+  --radius-4xl: 0.75rem;
+
+  --color-bg: #f3f3f3;
+  --color-panel: #ececec;
+  --color-hover: #e0e0e0;
+
+  --color-bg-dark: #141414;
+  --color-panel-dark: #151514;
+  --color-hover-dark: #1e1e1e;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #f3f3f3;
+  color: #171717;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dark body {
+  background: #141414;
+  color: #f5f5f5;
+}

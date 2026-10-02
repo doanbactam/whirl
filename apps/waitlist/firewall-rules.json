@@ -1,0 +1,38 @@
+{
+  "_comment": "WAF rules to apply via the Vercel Firewall API or dashboard. Hobby plan limits: 5 custom rules + 1 rate-limit rule total. Apply each `rules.insert` action with: curl -X PATCH 'https://api.vercel.com/v1/security/firewall/config?projectId=PRJ&teamId=TEAM' -H \"Authorization: Bearer $VERCEL_TOKEN\" -H 'Content-Type: application/json' -d '<one action object>'  — or just paste each `value` into Project > Firewall > Custom Rules in the dashboard.",
+  "rules": [
+    {
+      "action": "rules.insert",
+      "value": {
+        "name": "Waitlist signup rate limit",
+        "description": "Cap waitlist signups at 3 per minute per IP.",
+        "active": true,
+        "conditionGroup": [
+          {
+            "conditions": [
+              { "type": "path", "op": "eq", "value": "/api/waitlist" },
+              { "type": "method", "op": "eq", "value": "POST" }
+            ]
+          }
+        ],
+        "action": {
+          "mitigate": {
+            "action": "rate_limit",
+            "rateLimit": {
+              "algo": "fixed_window",
+              "window": 60,
+              "limit": 3,
+              "keys": ["ip"],
+              "action": "deny"
+            }
+          }
+        }
+      }
+    },
+    {
+      "action": "managedRules.update",
+      "id": "bot_protection",
+      "value": { "active": true, "action": "challenge" }
+    }
+  ]
+}

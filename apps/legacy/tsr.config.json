@@ -1,0 +1,5 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/@tanstack/router-cli/schema.json",
+  "routesDirectory": "./app/routes",
+  "generatedRouteTree": "./app/routeTree.gen.ts"
+}

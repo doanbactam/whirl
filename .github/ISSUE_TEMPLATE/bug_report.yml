@@ -1,0 +1,45 @@
+name: Bug report
+description: Something in Whirl is broken or behaving strangely.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this! Found a security issue? Please don't file it here; see [SECURITY.md](https://github.com/whirlchat/whirl/blob/main/SECURITY.md) instead.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect to see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a new chat
+        2. Pick a model and send a message
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where are you running Whirl?
+      options:
+        - whirl.chat
+        - Self-hosted
+        - Local development
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS
+      placeholder: Chrome 140 on macOS 16
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, recordings, console errors, or Convex logs all help.

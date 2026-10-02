@@ -1,0 +1,31 @@
+{
+  "name": "@whirl/backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "convex dev",
+    "codegen": "convex codegen",
+    "deploy": "convex deploy",
+    "typecheck": "tsc -p convex",
+    "test:slots": "vitest run"
+  },
+  "dependencies": {
+    "@convex-dev/persistent-text-streaming": "^0.3.3",
+    "@firecrawl/anydoc": "^0.1.7",
+    "@openrouter/ai-sdk-provider": "^3.0.0",
+    "@useautumn/convex": "^0.0.23",
+    "ai": "^7.0.22",
+    "autumn-js": "^0.1.85",
+    "braintrust": "^3.27.0",
+    "convex": "^1.42.1",
+    "mathjs": "^15.2.0"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@types/node": "^26.1.1",
+    "convex-test": "^0.0.58",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.4",
+    "vitest": "^5.0.1"
+  }
+}

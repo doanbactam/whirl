@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818" />
+    <title>Offline · Whirl</title>
+    <!--
+      Standalone on purpose. The service worker serves this when the network
+      is gone, which is exactly when a hashed stylesheet or JS chunk is least
+      likely to be there — so everything it needs is either inline or already
+      precached beside it (the font, the mark).
+    -->
+    <style>
+      @font-face {
+        font-family: InterVariable;
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("/fonts/InterVariable.woff2") format("woff2");
+      }
+
+      :root {
+        color-scheme: light dark;
+        --surface: #ffffff;
+        --foreground: #141414;
+        --muted-foreground: #6b6b6b;
+        --well: #f3f3f3;
+        --well-outline: rgb(0 0 0 / 0.05);
+        --primary: #1c1c1c;
+        --primary-foreground: #fafafa;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --surface: #181818;
+          --foreground: #f0f0f0;
+          --muted-foreground: #9a9a9a;
+          --well: #242424;
+          --well-outline: rgb(255 255 255 / 0.05);
+          --primary: #e8e8e8;
+          --primary-foreground: #1c1c1c;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: max(24px, env(safe-area-inset-top)) 28px
+          max(24px, env(safe-area-inset-bottom));
+        background: var(--surface);
+        color: var(--foreground);
+        font-family: InterVariable, ui-sans-serif, system-ui, -apple-system,
+          "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-align: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .mark {
+        width: 34px;
+        height: 34px;
+        opacity: 0.85;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 19px;
+        line-height: 26px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      p {
+        margin: 0;
+        max-width: 20rem;
+        font-size: 15px;
+        line-height: 24px;
+        color: var(--muted-foreground);
+      }
+
+      button {
+        appearance: none;
+        margin-top: 4px;
+        padding: 0 20px;
+        height: 38px;
+        border: 0;
+        border-radius: 19px;
+        background: var(--primary);
+        color: var(--primary-foreground);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 550;
+        cursor: pointer;
+        transition: scale 140ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      button:active {
+        scale: 0.96;
+      }
+    </style>
+  </head>
+  <body>
+    <svg class="mark" viewBox="0 0 180 182" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M90.0905 0C88.4358 0 85.6779 15.9064 85.6779 37.3616C85.6779 58.8168 88.2519 75.4631 89.9066 75.4631C91.0098 75.4631 93.4 64.1806 93.4 37.9165C93.4 14.0569 91.0098 0 90.0905 0Z"/><path d="M44.4951 12.0228C41.3695 13.1325 52.7688 42.356 69.8677 64.3661C74.2804 69.9148 79.4284 76.0185 80.7154 75.6485C84.0249 74.1689 67.1098 35.8824 47.8046 14.4272C45.966 12.5777 45.0467 11.8378 44.4951 12.0228Z"/><path d="M11.0308 45.1304C8.45681 50.1243 37.3228 70.4697 58.2828 78.238C63.0631 80.0876 69.4982 81.3823 70.2336 79.5327C72.0722 76.3884 57.7312 63.4413 41.3677 54.7482C27.2105 47.3499 12.6856 42.7259 11.0308 45.1304Z"/><path d="M30.7046 83.2314C15.0765 83.2314 0 86.5606 0 90.8147C0 94.6988 12.6863 98.9529 30.7046 98.9529C47.4358 98.9529 63.2477 95.6236 63.2477 91.1846C63.2477 87.8553 53.1354 83.2314 30.7046 83.2314Z"/><path d="M11.2144 137.055C13.7884 141.494 28.681 139.089 43.7575 130.211C53.6859 124.662 65.0852 114.86 63.9821 106.721C61.0403 100.803 45.4123 105.427 32.7259 112.64C21.1428 119.299 9.00806 130.581 11.2144 137.055Z"/><path d="M43.576 169.422C47.9886 174.046 60.3072 164.428 68.0293 151.111C74.8321 138.719 78.5093 124.107 73.3612 119.853C68.2131 116.709 58.1009 126.142 50.5626 137.979C43.7598 149.262 39.531 162.579 43.576 169.422Z"/><path d="M90.2772 127.437C85.313 127.437 79.4295 137.61 79.4295 154.996C79.4295 167.203 83.6583 182 90.2772 182C94.506 182 100.757 173.122 100.757 154.996C100.941 139.275 95.793 127.437 90.2772 127.437Z"/><path d="M109.215 124.662C102.963 127.992 104.434 143.713 114.73 157.585C120.982 165.723 127.785 170.902 132.749 170.717C137.897 170.902 140.655 164.798 137.897 153.886C134.22 140.014 119.511 121.518 109.215 124.662Z"/><path d="M125.759 112.455C123.921 121.703 137.894 135.39 151.683 140.014C161.796 142.604 169.702 140.939 169.702 133.726C169.702 121.703 145.984 105.057 132.194 107.646C128.333 108.386 126.127 110.421 125.759 112.455Z"/><path d="M134.587 91C134.587 96.7337 141.573 104.872 158.121 104.872C171.726 104.687 180 99.1382 180 91.185C180 84.7114 171.91 77.3131 158.121 77.3131C145.802 77.1281 134.587 82.8618 133.851 90.2602L134.587 91Z"/><path d="M157.199 39.5811C144.145 39.0262 129.804 50.1237 129.804 61.4062C129.804 66.9549 134.033 72.3187 142.307 72.3187C155.545 72.6887 170.069 62.146 170.069 50.3087C170.069 44.0201 165.289 40.1359 157.199 39.5811Z"/><path d="M130.542 10.7281C121.349 10.7281 108.295 22.5655 108.111 37.1772C108.111 45.5004 111.972 50.4942 118.591 50.4942C127.784 50.4942 141.206 40.1366 141.206 23.6752C141.206 15.907 136.977 10.7281 130.542 10.7281Z"/></svg>
+    <h1>No connection</h1>
+    <p>Whirl can't reach your chats from here. Everything's waiting once you're back online.</p>
+    <button type="button" onclick="location.reload()">Try again</button>
+    <script>
+      /* Reload the moment the connection returns, so nobody is left looking
+         at this page after the network has quietly come back. */
+      addEventListener("online", () => location.reload());
+    </script>
+  </body>
+</html>
