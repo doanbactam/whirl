@@ -152,7 +152,7 @@ export default defineConfig({
 
     whirlThreadReplies: {
       description:
-        "The replies in one of the customer's threads, newest 20, oldest first: when each was written, the start of what was asked and of the reply, the model, whether it failed or was cut short, whether it was billed, and whether it was already refunded. Each one carries the messageId whirlRefundReply needs. Customers can't see message ids, so when they want a specific reply looked at or refunded, ask them to open that thread and copy the link from the address bar (it ends in /thread/ and an id), then pass what they paste here as-is. Match the reply they describe against askedAbout and replyStart, and confirm with them if more than one fits.",
+        "The newest 20 replies in one of the customer's threads: when, how the question and reply started, model, whether it failed or was cut short, billed, refunded, and each reply's messageId. Customers can't see message ids, so to look into or refund one reply, ask them to open that thread and copy the link from the address bar, then pass it here as-is. Match what they describe against askedAbout and replyStart, and check with them if more than one fits.",
       risk: "low",
       input: {
         threadId: p.string(
@@ -174,7 +174,7 @@ export default defineConfig({
 
     whirlRefundReply: {
       description:
-        "Gives back the allowance one reply used: its free message, its share of the plan's usage, or the extra-usage dollars it spent. It never refunds a subscription or a card payment. Use it when a reply was clearly broken, cut short, or wrong through no fault of the customer's. Never ask the customer for a message id; they can't see one. Ask for the thread link from their address bar, find the reply with whirlThreadReplies, and pass that thread and the reply's messageId. A reply from whirlReplyProblems or whirlUsageBreakdown already carries both. A teammate approves every call first, so don't promise the refund. Say you've asked the team to credit it back.",
+        "Gives back the allowance one reply used: its free message, plan usage, or extra-usage dollars. Never a subscription or card payment. Use it when a reply was clearly broken, cut short, or wrong through no fault of the customer's. Never ask for a message id; get the thread link from them and the messageId from whirlThreadReplies (whirlReplyProblems carries both too). A teammate approves every call first, so don't promise the refund. Say you've asked the team to credit it back.",
       risk: "high",
       input: {
         threadId: p.string(
